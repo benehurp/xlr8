@@ -11,6 +11,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
+    "axios": "^0.26.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0",
@@ -22,7 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint src --max-warnings=0",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "json": "json-server --watch images.json --port 3004"
   },
   "eslintConfig": {
     "extends": [
@@ -50,6 +52,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
+    "json-server": "^0.17.0",
     "prettier": "2.6.0"
   }
 }
