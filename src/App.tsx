@@ -1,7 +1,8 @@
+import SinglePage from 'pages/SinglePage'
 import React from 'react'
 
 const App = () => {
-   return <div>Hello World!</div>
+   return <SinglePage />
 }
 
 export default App
