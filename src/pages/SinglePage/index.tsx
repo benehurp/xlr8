@@ -1,29 +1,21 @@
-import { useApi } from 'hooks/useApi'
-import useLocalStorage from 'hooks/useLocalStorage'
-import React, { useEffect, useState } from 'react'
-import { ImageType } from './types'
+import { useGlobalStorage } from 'contexts/GlobalStorage/useGlobalStoage'
+import React from 'react'
+import * as S from './styles'
 
 const SinglePage = () => {
-   const api = useApi()
-   const [data, setData] = useState<ImageType[]>([])
-
-   useEffect(() => {
-      const fetchImages = async () => {
-         const response = await api.requestImages()
-         setData(response)
-      }
-      fetchImages()
-   }, [])
-
+   const { data } = useGlobalStorage()
    return (
-      <div>
-         {data.map(({ image_id, title, url }) => (
-            <div key={image_id}>
-               <p>{title}</p>
-               <img src={url}></img>
-            </div>
-         ))}
-      </div>
+      <S.Wrapper>
+         <S.WrapperMenu></S.WrapperMenu>
+         <S.WrapperContent>
+            {data.map(({ image_id, title, url }) => (
+               <div key={image_id}>
+                  <p>{title}</p>
+                  <img src={url}></img>
+               </div>
+            ))}
+         </S.WrapperContent>
+      </S.Wrapper>
    )
 }
 
