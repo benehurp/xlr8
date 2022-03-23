@@ -5,14 +5,22 @@ export const Wrapper = styled.div`
 `
 
 export const WrapperTitle = styled.div`
+   display: flex;
+   justify-content: center;
    position: absolute;
    transform: translateX(-50%);
    left: 50%;
    bottom: 10px;
    width: 90%;
    padding: 8px;
-   background: rgb(0, 0, 0, 0.75);
+   background: rgba(61, 40, 46, 0.75);
    border-radius: 0.6rem;
+   z-index: 1;
+   transition: 0.3s;
+
+   &:hover {
+      background: rgba(52, 46, 78, 1) !important;
+   }
 
    &::before {
       content: ' ';
@@ -28,9 +36,7 @@ export const WrapperTitle = styled.div`
    .title {
       text-align: center;
       color: white;
-      font-size: 16px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-         Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      width: 165px;
    }
 `
 export const Image = styled.div`
@@ -39,14 +45,19 @@ export const Image = styled.div`
    position: relative;
    transition: 0.3s;
    cursor: pointer;
+   &:hover {
+      transform: scale(105%);
+      filter: saturate(125%) drop-shadow(0px 0px 10px rgb(61, 40, 46, 0.9));
+
+      ${WrapperTitle} {
+         background: rgba(61, 40, 46, 0.75);
+      }
+   }
 
    img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 0.6rem;
-   }
-   &:hover {
-      transform: scale(105%);
    }
 `

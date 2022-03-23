@@ -4,7 +4,7 @@ import * as S from './styles'
 
 const Card = ({ title, url }: ImageType) => {
    const characters = title.length
-   const limit = 90
+   const limit = 55
    let newTitle = title
 
    if (characters >= limit) {

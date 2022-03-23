@@ -18,6 +18,10 @@ const SinglePage = () => {
                />
             ))}
          </S.WrapperContent>
+         <footer>
+            Power by <strong>Bene-Hur Pessoa</strong> <br />
+            ReactJS Developer
+         </footer>
       </S.Wrapper>
    )
 }
