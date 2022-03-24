@@ -8,18 +8,23 @@ export const GlobalContext = createContext<GlobalContextTypes>(
 
 export const GlobalStorage = ({ children }: GlobalStorageTypes) => {
    const api = useApi()
-   const [data, setData] = useState<ImageType[]>([])
+   const [data, setData] = useState<ImageType | null>(null)
+   console.log(data)
 
-   useEffect(() => {
-      const fetchImages = async () => {
-         const response = await api.requestImages()
-         setData(response)
+   const fetchImages = async () => {
+      const response = await api.requestImages()
+      const source = { selected: false }
+
+      if (response) {
+         const newResponse = response.map((item: number) =>
+            Object.assign(item, source)
+         )
+         setData(newResponse)
       }
-      fetchImages()
-   }, [])
+   }
 
    return (
-      <GlobalContext.Provider value={{ data }}>
+      <GlobalContext.Provider value={{ data, fetchImages }}>
          {children}
       </GlobalContext.Provider>
    )
