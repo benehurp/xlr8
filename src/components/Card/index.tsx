@@ -2,7 +2,7 @@ import { ImageType } from 'contexts/GlobalStorage/types'
 import React from 'react'
 import * as S from './styles'
 
-const Card = ({ title, url }: ImageType) => {
+const Card = ({ title, url, image_id, selected }: ImageType) => {
    const characters = title.length
    const limit = 55
    let newTitle = title
