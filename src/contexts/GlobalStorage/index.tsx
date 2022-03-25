@@ -8,18 +8,26 @@ export const GlobalContext = createContext<GlobalContextTypes>(
 
 export const GlobalStorage = ({ children }: GlobalStorageTypes) => {
    const api = useApi()
-   const [data, setData] = useState<ImageType | null>(null)
-   console.log(data)
+   const [data, setData] = useState<ImageType[]>([
+      {
+         image_id: 0,
+         title: 'Loading cats...',
+         url: 'https://i.gifer.com/1tJG.gif',
+         selected: false
+      }
+   ])
 
    const fetchImages = async () => {
       const response = await api.requestImages()
-      const source = { selected: false }
+      const add = { selected: false }
 
       if (response) {
          const newResponse = response.map((item: number) =>
-            Object.assign(item, source)
+            Object.assign(item, add)
          )
-         setData(newResponse)
+         setTimeout(() => {
+            setData(newResponse)
+         }, 1500)
       }
    }
 

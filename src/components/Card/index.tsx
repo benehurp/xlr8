@@ -1,5 +1,5 @@
 import { ImageType } from 'contexts/GlobalStorage/types'
-import React from 'react'
+import React, { useState } from 'react'
 import * as S from './styles'
 
 const Card = ({ title, url, image_id, selected }: ImageType) => {
@@ -13,7 +13,7 @@ const Card = ({ title, url, image_id, selected }: ImageType) => {
 
    return (
       <S.Wrapper>
-         <S.Image>
+         <S.Image selected={selected}>
             <S.WrapperTitle>
                <p className="title">{newTitle}</p>
             </S.WrapperTitle>

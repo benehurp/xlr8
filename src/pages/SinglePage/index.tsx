@@ -6,8 +6,9 @@ import React, { useEffect, useState } from 'react'
 import * as S from './styles'
 
 const SinglePage = () => {
+   const localStorage = useLocalStorage()
    const { data, fetchImages } = useGlobalStorage()
-   const [selection, setSelection] = useState<number[]>([])
+   const [active, setActive] = useState<boolean>()
 
    useEffect(() => {
       fetchImages()
@@ -15,16 +16,30 @@ const SinglePage = () => {
 
    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
       const div = event.currentTarget
-      const card = JSON.parse(div.id)
-      const verifyCard = selection.includes(card)
+      const card = JSON.parse(div.id) - 1
+      const cardSelected = data[card]
 
-      if (!verifyCard) {
-         return setSelection([...selection, card])
+      if (cardSelected.selected === false) {
+         Object.assign(cardSelected, { selected: true })
+      } else {
+         Object.assign(cardSelected, { selected: false })
       }
-      if (verifyCard) {
-         return selection.splice(card - 1, JSON.parse(card))
-      }
+      localStorage.setItem('Data', JSON.stringify(data))
+      setActive(!active)
    }
+
+   const CardsList =
+      data instanceof Array &&
+      data.map(({ image_id, title, url, selected }: ImageType) => (
+         <div id={image_id.toString()} key={image_id} onClick={handleClick}>
+            <Card
+               image_id={image_id}
+               title={title}
+               url={url}
+               selected={selected}
+            />
+         </div>
+      ))
 
    return (
       <S.Wrapper>
@@ -37,23 +52,7 @@ const SinglePage = () => {
                <button>Reset</button>
             </S.ButtonsWrapper>
          </S.WrapperMenu>
-         <S.WrapperContent>
-            {data instanceof Array &&
-               data.map(({ image_id, title, url, selected }: ImageType) => (
-                  <div
-                     id={image_id.toString()}
-                     key={image_id}
-                     onClick={handleClick}
-                  >
-                     <Card
-                        image_id={image_id}
-                        title={title}
-                        url={url}
-                        selected={selected}
-                     />
-                  </div>
-               ))}
-         </S.WrapperContent>
+         <S.WrapperContent>{CardsList}</S.WrapperContent>
          <footer>
             <p>
                Power by <strong>Bene-Hur Pessoa</strong> <br />

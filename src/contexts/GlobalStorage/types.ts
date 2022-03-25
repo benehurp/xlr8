@@ -6,7 +6,7 @@ export type ImageType = {
 }
 
 export type GlobalContextTypes = {
-   data: ImageType | null
+   data: ImageType[]
    fetchImages: () => Promise<void>
 }
 
