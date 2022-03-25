@@ -1,4 +1,14 @@
-import styled from 'styled-components'
+import { ImageType } from 'contexts/GlobalStorage/types'
+import styled, { css } from 'styled-components'
+import { ButtonTypes } from './types'
+
+const buttonModifiers = {
+   selected: () => css`
+      background: #f5dbdd;
+      color: #342e4e;
+      border: 2px solid #af8289;
+   `
+}
 
 export const Wrapper = styled.div`
    grid-template-columns: 1fr minmax(320px, 1300px) 1fr;
@@ -37,8 +47,9 @@ export const ButtonsWrapper = styled.nav`
    justify-content: center;
    margin: 20px 0 0;
    gap: 2rem;
-
-   button {
+`
+export const Button = styled.button<Pick<ButtonTypes, 'status'>>`
+   ${({ status }) => css`
       padding: 1rem 2rem;
       border-radius: 1rem;
       border: 2px solid white;
@@ -50,11 +61,12 @@ export const ButtonsWrapper = styled.nav`
       cursor: pointer;
       transition: 0.3s;
 
+      ${status && buttonModifiers.selected()}
+
       &:hover {
-         background: #f5dbdd;
-         color: #342e4e;
-         font-weight: 500;
+         background: rgba(245, 219, 221, 0.25);
+         color: #af8289;
          border: 2px solid #af8289;
       }
-   }
+   `}
 `
