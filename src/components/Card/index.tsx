@@ -14,7 +14,7 @@ const Card = ({ title, url, image_id, selected }: ImageType) => {
    return (
       <S.Wrapper>
          <S.Image selected={selected}>
-            <S.WrapperTitle>
+            <S.WrapperTitle selected={selected}>
                <p className="title">{newTitle}</p>
             </S.WrapperTitle>
             <img src={url} />
