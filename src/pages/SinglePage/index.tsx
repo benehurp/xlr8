@@ -8,29 +8,68 @@ import * as S from './styles'
 const SinglePage = () => {
    const localStorage = useLocalStorage()
    const { data, fetchImages } = useGlobalStorage()
+   const [items, setItems] = useState<ImageType[]>()
    const [active, setActive] = useState<boolean>()
+   const [listAllStatus, setListAllStatus] = useState<boolean>(true)
+   const [mySelectionsStatus, setMySelectionsStatus] = useState<boolean>(false)
 
    useEffect(() => {
       fetchImages()
    }, [])
 
-   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-      const div = event.currentTarget
-      const card = JSON.parse(div.id) - 1
-      const cardSelected = data[card]
+   useEffect(() => {
+      setItems(data)
+   }, [data])
 
-      if (cardSelected.selected === false) {
-         Object.assign(cardSelected, { selected: true })
-      } else {
-         Object.assign(cardSelected, { selected: false })
+   const mySelections = () => {
+      const filter = items!.filter(({ selected }) => selected)
+      console.log(filter)
+      if (!mySelectionsStatus) {
+         setListAllStatus(false)
+         setMySelectionsStatus(true)
       }
-      localStorage.setItem('Data', JSON.stringify(data))
       setActive(!active)
    }
 
+   const listAll = () => {
+      setItems(data)
+      setListAllStatus(true)
+      setMySelectionsStatus(false)
+   }
+
+   const reset = () => {
+      setItems(
+         Object.assign(
+            items!,
+            items?.map((item) => Object.assign(item, { selected: false }))
+         )
+      )
+      setItems(data)
+      setListAllStatus(true)
+      setMySelectionsStatus(false)
+      setActive(!active)
+   }
+
+   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+      const div = event.currentTarget
+      const card = JSON.parse(div.id) - 1
+      const cardSelected = items![card]
+
+      if (!cardSelected.selected) {
+         Object.assign(cardSelected, { selected: true })
+         localStorage.setItem('Data', JSON.stringify(data))
+         return setActive(!active)
+      }
+      if (cardSelected.selected) {
+         Object.assign(cardSelected, { selected: false })
+         localStorage.setItem('Data', JSON.stringify(data))
+         return setActive(!active)
+      }
+   }
+
    const CardsList =
-      data instanceof Array &&
-      data.map(({ image_id, title, url, selected }: ImageType) => (
+      items instanceof Array &&
+      items!.map(({ image_id, title, url, selected }: ImageType) => (
          <div id={image_id.toString()} key={image_id} onClick={handleClick}>
             <Card
                image_id={image_id}
@@ -47,9 +86,13 @@ const SinglePage = () => {
             <h1>The beautiful Kittens</h1>
             <p>Test to work with ReactJS</p>
             <S.ButtonsWrapper>
-               <button>List all</button>
-               <button>My selections</button>
-               <button>Reset</button>
+               <S.Button status={listAllStatus} onClick={listAll}>
+                  List all
+               </S.Button>
+               <S.Button status={mySelectionsStatus} onClick={mySelections}>
+                  My selections
+               </S.Button>
+               <S.Button onClick={reset}>Reset</S.Button>
             </S.ButtonsWrapper>
          </S.WrapperMenu>
          <S.WrapperContent>{CardsList}</S.WrapperContent>
