@@ -8,7 +8,6 @@ export const Wrapper = styled.div`
       'left body right'
       'footer footer footer';
    display: grid;
-   background: #f5dbdd;
 
    footer {
       padding-top: 2rem;

@@ -1,4 +1,14 @@
-import styled from 'styled-components'
+import { ImageType } from 'contexts/GlobalStorage/types'
+import styled, { css } from 'styled-components'
+
+type ImageWrapperType = Pick<ImageType, 'selected'>
+
+const imageModifiers = {
+   selected: () => css`
+      filter: grayscale(100%) opacity(10%);
+      background: red;
+   `
+}
 
 export const Wrapper = styled.div`
    position: relative;
@@ -39,25 +49,29 @@ export const WrapperTitle = styled.div`
       width: 165px;
    }
 `
-export const Image = styled.div`
-   width: 300px;
-   height: 272px;
-   position: relative;
-   transition: 0.3s;
-   cursor: pointer;
-   &:hover {
-      transform: scale(105%);
-      filter: saturate(125%) drop-shadow(0px 0px 10px rgb(61, 40, 46, 0.9));
+export const Image = styled.div<ImageWrapperType>`
+   ${({ selected }) => css`
+      width: 300px;
+      height: 272px;
+      position: relative;
+      transition: 0.3s;
+      cursor: pointer;
+      &:hover {
+         transform: scale(105%);
+         //filter: saturate(125%) drop-shadow(0px 0px 10px rgb(61, 40, 46, 0.9));
 
-      ${WrapperTitle} {
-         background: rgba(61, 40, 46, 0.75);
+         ${WrapperTitle} {
+            background: rgba(61, 40, 46, 0.75);
+         }
       }
-   }
 
-   img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 0.6rem;
-   }
+      img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         border-radius: 0.6rem;
+      }
+
+      ${selected && imageModifiers.selected()}
+   `}
 `
