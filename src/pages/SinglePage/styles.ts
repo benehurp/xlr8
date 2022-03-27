@@ -1,7 +1,34 @@
 import styled, { css } from 'styled-components'
 import { ButtonTypes } from './types'
 
-type ButtonProps = Pick<ButtonTypes, 'status' | 'totalSelected'>
+type ButtonProps = Pick<
+   ButtonTypes,
+   'status' | 'totalSelected' | 'height' | 'wheel'
+>
+
+const menuModifiers = {
+   position: ({ height, wheel }: ButtonProps) => {
+      if (height! >= 200 && wheel! > 0) {
+         return css`
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+         `
+      }
+
+      if (wheel! < 0) {
+         return css`
+            width: 100%;
+            position: fixed;
+            top: 0;
+         `
+      }
+
+      return css`
+         position: inherit;
+      `
+   }
+}
 
 const buttonModifiers = {
    selected: () => css`
@@ -43,6 +70,7 @@ export const Wrapper = styled.div`
       'left body right'
       'footer footer footer';
    display: grid;
+   margin-bottom: 200px;
 
    footer {
       padding-top: 2rem;
@@ -51,28 +79,34 @@ export const Wrapper = styled.div`
    }
 `
 
-export const WrapperMenu = styled.header`
-   grid-area: menu;
-   background: #342e4e;
-   text-align: center;
-   color: white;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-   gap: 1rem;
-
-   @media screen and (max-width: 612px) {
-      flex-direction: row;
+export const WrapperMenu = styled.header<ButtonProps>`
+   ${({ height, wheel }) => css`
+      grid-area: menu;
+      height: 180px;
+      background: #342e4e;
+      text-align: center;
+      color: white;
+      display: flex;
       justify-content: center;
-      gap: 0.5rem;
-      padding: 1rem;
+      align-items: center;
+      flex-direction: column;
+      z-index: 50;
+      gap: 1rem;
+      transition: 0.3s;
+      ${!!height && menuModifiers.position({ height, wheel })}
 
-      h1,
-      p {
-         font-size: 100%;
+      @media screen and (max-width: 612px) {
+         flex-direction: row;
+         justify-content: center;
+         gap: 0.5rem;
+         padding: 1rem;
+
+         h1,
+         p {
+            font-size: 100%;
+         }
       }
-   }
+   `}
 `
 
 export const WrapperContent = styled.main`
@@ -95,7 +129,7 @@ export const ButtonsWrapper = styled.nav`
 `
 export const Button = styled.button<ButtonProps>`
    ${({ status, totalSelected }) => css`
-      padding: 1rem 2rem;
+      padding: 0.5rem 2rem;
       border-radius: 1rem;
       border: 2px solid white;
       background: transparent;
@@ -109,6 +143,7 @@ export const Button = styled.button<ButtonProps>`
 
       @media screen and (max-width: 612px) {
          padding: 0.5rem 2rem;
+         font-size: 10px;
       }
 
       &:hover {

@@ -2,11 +2,15 @@ import Card from 'components/Card'
 import { ImageType } from 'contexts/GlobalStorage/types'
 import { useGlobalStorage } from 'contexts/GlobalStorage/useGlobalStoage'
 import useLocalStorage from 'hooks/useLocalStorage'
+import useActualPosition from 'hooks/useActualPosition'
 import React, { useEffect, useState } from 'react'
 import * as S from './styles'
+import useWheelMouse from 'hooks/useWheelMouse'
 
 const SinglePage = () => {
    const localStorage = useLocalStorage()
+   const [height] = useActualPosition()
+   const [wheel] = useWheelMouse()
    const { data, fetchImages } = useGlobalStorage()
    const [items, setItems] = useState<ImageType[]>()
    const [active, setActive] = useState<boolean>()
@@ -17,7 +21,6 @@ const SinglePage = () => {
 
    useEffect(() => {
       fetchImages()
-
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
 
@@ -94,7 +97,7 @@ const SinglePage = () => {
 
    return (
       <S.Wrapper>
-         <S.WrapperMenu>
+         <S.WrapperMenu height={height} wheel={wheel}>
             <div className="group__titles">
                <h1>The beautiful Kittens</h1>
                <p>Test to work with ReactJS</p>
