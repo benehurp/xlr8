@@ -12,84 +12,102 @@ const SinglePage = () => {
    const [active, setActive] = useState<boolean>()
    const [listAllStatus, setListAllStatus] = useState<boolean>(true)
    const [mySelectionsStatus, setMySelectionsStatus] = useState<boolean>(false)
+   const [total, setTotal] = useState<number>(0)
+   const [totalSelected, setTotalSelected] = useState<number>(0)
 
    useEffect(() => {
       fetchImages()
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [])
 
    useEffect(() => {
-      setItems(data)
+      listAll()
    }, [data])
 
+   const counter = () => {
+      const selects = items!.filter(({ selected }) => selected)
+      setTotalSelected(selects.length)
+   }
+
+   const listAll = async () => {
+      const filter = await data!.filter((item) => item)
+      setTotal(filter.length)
+      setItems(filter)
+      setListAllStatus(true)
+      setMySelectionsStatus(false)
+   }
+
    const mySelections = () => {
-      const filter = items!.filter(({ selected }) => selected)
-      console.log(filter)
+      const filter = data!.filter(({ selected }) => selected)
+      setItems(filter)
       if (!mySelectionsStatus) {
          setListAllStatus(false)
          setMySelectionsStatus(true)
       }
-      setActive(!active)
-   }
-
-   const listAll = () => {
-      setItems(data)
-      setListAllStatus(true)
-      setMySelectionsStatus(false)
    }
 
    const reset = () => {
-      setItems(
-         Object.assign(
-            items!,
-            items?.map((item) => Object.assign(item, { selected: false }))
-         )
+      const filter = Object.assign(
+         data!,
+         data?.map((item) => Object.assign(item, { selected: false }))
       )
-      setItems(data)
       setListAllStatus(true)
       setMySelectionsStatus(false)
-      setActive(!active)
+      setTotalSelected(0)
+      setItems(filter)
    }
 
    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-      const div = event.currentTarget
-      const card = JSON.parse(div.id) - 1
+      const target = JSON.parse(event.currentTarget.id)
+      const card = items!.map(({ image_id }) => image_id).indexOf(target)
       const cardSelected = items![card]
 
       if (!cardSelected.selected) {
          Object.assign(cardSelected, { selected: true })
-         localStorage.setItem('Data', JSON.stringify(data))
+         counter()
          return setActive(!active)
       }
       if (cardSelected.selected) {
          Object.assign(cardSelected, { selected: false })
-         localStorage.setItem('Data', JSON.stringify(data))
+         counter()
          return setActive(!active)
       }
    }
 
    const CardsList =
       items instanceof Array &&
-      items!.map(({ image_id, title, url, selected }: ImageType) => (
-         <div id={image_id.toString()} key={image_id} onClick={handleClick}>
+      items!.map(
+         ({ image_id, title, url, selected }: ImageType) => (
             <Card
+               key={image_id}
+               id={image_id.toString()}
+               onClick={handleClick}
                image_id={image_id}
                title={title}
                url={url}
                selected={selected}
             />
-         </div>
-      ))
+         ),
+         this
+      )
 
    return (
       <S.Wrapper>
          <S.WrapperMenu>
-            <h1>The beautiful Kittens</h1>
-            <p>Test to work with ReactJS</p>
+            <div className="group__titles">
+               <h1>The beautiful Kittens</h1>
+               <p>Test to work with ReactJS</p>
+            </div>
             <S.ButtonsWrapper>
                <S.Button status={listAllStatus} onClick={listAll}>
-                  List all
+                  List all ({total}) items
                </S.Button>
-               <S.Button status={mySelectionsStatus} onClick={mySelections}>
+               <S.Button
+                  status={mySelectionsStatus}
+                  totalSelected={JSON.stringify(totalSelected)}
+                  onClick={mySelections}
+               >
                   My selections
                </S.Button>
                <S.Button onClick={reset}>Reset</S.Button>
