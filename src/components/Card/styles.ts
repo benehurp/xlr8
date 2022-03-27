@@ -5,7 +5,7 @@ type ImageWrapperType = Pick<ImageType, 'selected'>
 
 const imageModifiers = {
    selectedBorder: () => css`
-      border: 5px solid rgba(52, 46, 78, 1);
+      border: 6px solid rgba(52, 46, 78, 1);
    `,
    selectedBackground: () => css`
       background: rgba(52, 46, 78, 1);
@@ -31,6 +31,7 @@ const imageModifiers = {
 
 export const Wrapper = styled.div`
    position: relative;
+   border-radius: 0.6rem;
 `
 
 export const WrapperTitle = styled.div<ImageWrapperType>`
