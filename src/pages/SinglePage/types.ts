@@ -6,4 +6,5 @@ type StandardButtonTypes =
 
 export type ButtonTypes = {
    status?: boolean
+   totalSelected?: string
 } & StandardButtonTypes
