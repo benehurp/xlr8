@@ -9,6 +9,11 @@
 
 This was a challenge I solved for a job vacancy. I got carried away and went a little beyond the test requirements and I really liked the result. Basically I received a JSON file and a pdf with the requirements and so I structured this project.
 
+
+[Preview Online](https://xlr8-test.vercel.app/)
+
+[![thumb](https://scrnli.com/M2E8C7WF64H8RB)
+
 ## Requirements
 
 For development, you will need some software installed in your environment.
