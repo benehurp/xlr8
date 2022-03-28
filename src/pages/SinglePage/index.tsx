@@ -1,31 +1,29 @@
 import Card from 'components/Card'
 import { ImageType } from 'contexts/GlobalStorage/types'
 import { useGlobalStorage } from 'contexts/GlobalStorage/useGlobalStoage'
-import useLocalStorage from 'hooks/useLocalStorage'
+//import useLocalStorage from 'hooks/useLocalStorage'
 import useActualPosition from 'hooks/useActualPosition'
 import React, { useEffect, useState } from 'react'
 import * as S from './styles'
 import useWheelMouse from 'hooks/useWheelMouse'
 
 const SinglePage = () => {
-   const localStorage = useLocalStorage()
+   //const localStorage = useLocalStorage()
    const [height] = useActualPosition()
    const [wheel] = useWheelMouse()
-   const { data, fetchImages } = useGlobalStorage()
-   const [items, setItems] = useState<ImageType[]>()
+   const { data } = useGlobalStorage()
+   const [items, setItems] = useState<ImageType[] | null>(null)
    const [active, setActive] = useState<boolean>()
    const [listAllStatus, setListAllStatus] = useState<boolean>(true)
    const [mySelectionsStatus, setMySelectionsStatus] = useState<boolean>(false)
    const [total, setTotal] = useState<number>(0)
    const [totalSelected, setTotalSelected] = useState<number>(0)
+   //const localData = JSON.parse(localStorage.getItem('Data')!)
 
    useEffect(() => {
-      fetchImages()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [])
-
-   useEffect(() => {
-      listAll()
+      if (data) {
+         return listAll()
+      }
    }, [data])
 
    const counter = () => {
@@ -33,8 +31,8 @@ const SinglePage = () => {
       setTotalSelected(selects.length)
    }
 
-   const listAll = async () => {
-      const filter = await data!.filter((item) => item)
+   const listAll = () => {
+      const filter = data!.filter((item) => item)
       setTotal(filter.length)
       setItems(filter)
       setListAllStatus(true)
@@ -68,11 +66,13 @@ const SinglePage = () => {
 
       if (!cardSelected.selected) {
          Object.assign(cardSelected, { selected: true })
+         //localStorage.setItem('Data', JSON.stringify(items))
          counter()
          return setActive(!active)
       }
       if (cardSelected.selected) {
          Object.assign(cardSelected, { selected: false })
+         //localStorage.setItem('Data', JSON.stringify(items))
          counter()
          return setActive(!active)
       }
@@ -95,6 +95,20 @@ const SinglePage = () => {
          this
       )
 
+   const Loading = (
+      <S.Loading>
+         <img src="https://i.gifer.com/1tJG.gif" />
+         <h2>Loading cats...</h2>
+      </S.Loading>
+   )
+
+   const CothingSelected = (
+      <S.Loading>
+         <img src="https://i.gifer.com/2GU.gif" />
+         <h2>You have not selected any kittens!</h2>
+      </S.Loading>
+   )
+
    return (
       <S.Wrapper>
          <S.WrapperMenu height={height} wheel={wheel}>
@@ -116,7 +130,10 @@ const SinglePage = () => {
                <S.Button onClick={reset}>Reset</S.Button>
             </S.ButtonsWrapper>
          </S.WrapperMenu>
-         <S.WrapperContent>{CardsList}</S.WrapperContent>
+         <S.WrapperContent>
+            {!!mySelectionsStatus && totalSelected === 0 && CothingSelected}
+            {items === null ? Loading : CardsList}
+         </S.WrapperContent>
          <footer>
             <p>
                Power by <strong>Bene-Hur Pessoa</strong> <br />

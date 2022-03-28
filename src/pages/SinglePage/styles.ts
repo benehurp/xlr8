@@ -156,3 +156,19 @@ export const Button = styled.button<ButtonProps>`
       ${totalSelected && buttonModifiers.counter({ totalSelected })}
    `}
 `
+export const Loading = styled.div`
+   width: 400px;
+   height: 272px;
+   margin-bottom: 10rem;
+
+   h2 {
+      text-align: center;
+   }
+
+   img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0.6rem;
+   }
+`
