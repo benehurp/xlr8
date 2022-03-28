@@ -9,7 +9,7 @@ export type ImageType = {
 } & HTMLAttributes<HTMLDivElement>
 
 export type GlobalContextTypes = {
-   data: ImageType[]
+   data: ImageType[] | null
    fetchImages: () => Promise<void>
 }
 

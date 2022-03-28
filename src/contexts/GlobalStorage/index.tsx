@@ -1,4 +1,5 @@
 import { useApi } from 'hooks/useApi'
+import useLocalStorage from 'hooks/useLocalStorage'
 import React, { createContext, useEffect, useState } from 'react'
 import { GlobalContextTypes, GlobalStorageTypes, ImageType } from './types'
 
@@ -7,15 +8,9 @@ export const GlobalContext = createContext<GlobalContextTypes>(
 )
 
 export const GlobalStorage = ({ children }: GlobalStorageTypes) => {
+   const localStorage = useLocalStorage()
    const api = useApi()
-   const [data, setData] = useState<ImageType[]>([
-      {
-         image_id: 0,
-         title: 'Loading cats...',
-         url: 'https://i.gifer.com/1tJG.gif',
-         selected: false
-      }
-   ])
+   const [data, setData] = useState<ImageType[] | null>(null)
 
    const fetchImages = async () => {
       const response = await api.requestImages()
@@ -30,6 +25,10 @@ export const GlobalStorage = ({ children }: GlobalStorageTypes) => {
          }, 1500)
       }
    }
+
+   useEffect(() => {
+      fetchImages()
+   }, [])
 
    return (
       <GlobalContext.Provider value={{ data, fetchImages }}>
