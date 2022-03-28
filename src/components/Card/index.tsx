@@ -1,5 +1,5 @@
 import { ImageType } from 'contexts/GlobalStorage/types'
-import React, { useState } from 'react'
+import React from 'react'
 import * as S from './styles'
 
 const Card = ({ title, url, image_id, selected, ...props }: ImageType) => {
