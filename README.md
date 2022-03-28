@@ -12,7 +12,7 @@ This was a challenge I solved for a job vacancy. I got carried away and went a l
 
 [Preview Online](https://xlr8-test.vercel.app/)
 
-[![thumb](https://scrnli.com/M2E8C7WF64H8RB)
+![thumb](https://pic.li/images/2022/03/28/scrnli_28_03_2022-00-00-14-1.png)
 
 ## Requirements
 
