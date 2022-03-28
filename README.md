@@ -33,27 +33,35 @@ The task consists of a simple single page with a gallery component, written in R
 The images can be found here: on attached json file images.json
 
 ### Requirements:
-[x] A1) Display the images as 300x272 boxes. You can simply display the provided images in rows, with uniform vertical spaces between each row (at least 10px).
-[x] A2) The image files provided by the api (JSON file) can vary in size. Ensure they aren't shown off center or stretched out, and that they fill the whole 300x272 box.
-[x] A3) There should be uniform horizontal spaces between each image (at least 20px).
-[x] A4) The image layout should maintain perfect vertical symmetry regardless of screen size (just the box layout of course, not the contents such as the pictures themselves)
+- [x] A1) Display the images as 300x272 boxes. You can simply display the provided images in rows, with uniform vertical spaces between each row (at least 10px).
 
-[x] B1) Underneath every image/box, add the following:
+- [x] A2) The image files provided by the api (JSON file) can vary in size. Ensure they aren't shown off center or stretched out, and that they fill the whole 300x272 box.
+
+- [x] A3) There should be uniform horizontal spaces between each image (at least 20px).
+
+- [x] A4) The image layout should maintain perfect vertical symmetry regardless of screen size (just the box layout of course, not the contents such as the pictures themselves)
+
+- [x] B1) Underneath every image/box, add the following:
    - On the left side, a small arrow icon, centered vertically with the title
    - On the right, the title of the image. Make sure that the title doesn't occupy more than 3 lines, otherwise truncate it and show an ellipsis at the end.
-[x] B2) The title of the image should be highlighted if the image is bookmarked. You can do that for example by changing it to a different color.
 
-[x] C1) When the user clicks on an image that they haven't bookmarked yet, should save the state of the bookmark and change the icon to filled
+- [x] B2) The title of the image should be highlighted if the image is bookmarked. You can do that for example by changing it to a different color.
 
-[x] D1) Add a basic tabs system above the images, in order to display ALL Images or Bookmarked Images.
-[x] D2) If you scroll the page, once you get past the tabs and they're no longer visible, they should show up fixed at the bottom of the page instead. This alternate navbar should vanish once you scroll back up and can see the original, static tabs again.
+- [x] C1) When the user clicks on an image that they haven't bookmarked yet, should save the state of the bookmark and change the icon to filled
+
+- [x] D1) Add a basic tabs system above the images, in order to display ALL Images or Bookmarked Images.
+
+- [x] D2) If you scroll the page, once you get past the tabs and they're no longer visible, they should show up fixed at the bottom of the page instead. This alternate navbar should vanish once you scroll back up and can see the original, static tabs again.
 
 
 ### Important Notes:
-[x] E1) You don't need to waste time making the component pretty, as long as it hits all requirements. We won't be judging the design as long as it's not clearly broken.
-[x] E2) You can handle any issue that isn't explicitly mentioned above in the way you find most expedient.
-[x] E3) For testing convenience only, the image ids are always sequential and start from 1. The code should not rely on that.
-[x] E4) The page should be reasonably compatible with various, non obsolete devices/browsers.
+- [x] E1) You don't need to waste time making the component pretty, as long as it hits all requirements. We won't be judging the design as long as it's not clearly broken.
+
+- [x] E2) You can handle any issue that isn't explicitly mentioned above in the way you find most expedient.
+
+- [x] E3) For testing convenience only, the image ids are always sequential and start from 1. The code should not rely on that.
+
+- [x] E4) The page should be reasonably compatible with various, non obsolete devices/browsers.
 
 Obrigado!
 
