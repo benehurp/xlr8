@@ -102,7 +102,7 @@ const SinglePage = () => {
       </S.Loading>
    )
 
-   const CothingSelected = (
+   const NothingSelected = (
       <S.Loading>
          <img src="https://i.gifer.com/2GU.gif" />
          <h2>You have not selected any kittens!</h2>
@@ -134,7 +134,7 @@ const SinglePage = () => {
             {}
             {items === null && Loading}
             {!!mySelectionsStatus && totalSelected === 0
-               ? CothingSelected
+               ? NothingSelected
                : CardsList}
          </S.WrapperContent>
          <footer>
