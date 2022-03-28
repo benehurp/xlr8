@@ -9,7 +9,7 @@ import useWheelMouse from 'hooks/useWheelMouse'
 
 const SinglePage = () => {
    //const localStorage = useLocalStorage()
-   const [height] = useActualPosition()
+   const [scrollHeight] = useActualPosition()
    const [wheel] = useWheelMouse()
    const { data } = useGlobalStorage()
    const [items, setItems] = useState<ImageType[] | null>(null)
@@ -111,7 +111,7 @@ const SinglePage = () => {
 
    return (
       <S.Wrapper>
-         <S.WrapperMenu height={height} wheel={wheel}>
+         <S.WrapperMenu scrollHeight={scrollHeight} wheel={wheel}>
             <div className="group__titles">
                <h1>The beautiful Kittens</h1>
                <p>Test to work with ReactJS</p>

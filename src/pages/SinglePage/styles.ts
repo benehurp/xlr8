@@ -3,12 +3,12 @@ import { ButtonTypes } from './types'
 
 type ButtonProps = Pick<
    ButtonTypes,
-   'status' | 'totalSelected' | 'height' | 'wheel'
+   'status' | 'totalSelected' | 'scrollHeight' | 'wheel'
 >
 
 const menuModifiers = {
-   position: ({ height, wheel }: ButtonProps) => {
-      if (height! >= 200 && wheel! > 0) {
+   position: ({ scrollHeight, wheel }: ButtonProps) => {
+      if (scrollHeight! >= 200 && wheel! > 0) {
          return css`
             width: 100%;
             position: fixed;
@@ -80,7 +80,7 @@ export const Wrapper = styled.div`
 `
 
 export const WrapperMenu = styled.header<ButtonProps>`
-   ${({ height, wheel }) => css`
+   ${({ scrollHeight, wheel }) => css`
       grid-area: menu;
       height: 180px;
       background: #342e4e;
@@ -93,7 +93,7 @@ export const WrapperMenu = styled.header<ButtonProps>`
       z-index: 50;
       gap: 1rem;
       transition: 0.3s;
-      ${!!height && menuModifiers.position({ height, wheel })}
+      ${!!scrollHeight && menuModifiers.position({ scrollHeight, wheel })}
 
       @media screen and (max-width: 612px) {
          flex-direction: row;
