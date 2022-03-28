@@ -131,8 +131,11 @@ const SinglePage = () => {
             </S.ButtonsWrapper>
          </S.WrapperMenu>
          <S.WrapperContent>
-            {!!mySelectionsStatus && totalSelected === 0 && CothingSelected}
-            {items === null ? Loading : CardsList}
+            {}
+            {items === null && Loading}
+            {!!mySelectionsStatus && totalSelected === 0
+               ? CothingSelected
+               : CardsList}
          </S.WrapperContent>
          <footer>
             <p>
